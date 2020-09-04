@@ -22,9 +22,13 @@ export class ItemsServices{
             return this.http.delete<Items>(`${this.BASE_URL}/${id}`);
         }
 
-        saveItem(dataAppartement){
-            console.log('dataAppartement', dataAppartement)
-            return this.http.post<Items>(`${this.BASE_URL}/`,dataAppartement);
+        saveItem(dataItem){
+            console.log('dataItem', dataItem)
+            return this.http.post<Items>(`${this.BASE_URL}/`,dataItem);
         }
 
+        updateItem(id,item){
+            console.log('dataUpdateItem', id,item)
+            return this.http.put<Items>(`${this.BASE_URL}/${id}`,item)
+        }
 }

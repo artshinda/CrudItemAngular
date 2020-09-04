@@ -6,6 +6,7 @@
 </head>
 
 <body>
+    <!-- Modal Add Item -->
     <ng-template #mymodal let-modal>
         <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">Add Item</h4>
@@ -24,7 +25,7 @@
                 <label class="col-sm-2 col-form-label">Select</label>
                 <div class="col-sm-10">
                     <select class="form-control" [(ngModel)]="kategori">
-                      <option disabled>Select Kategori</option>
+                      <option disabled selected="selected">Select Kategori</option>
                       <option  *ngFor="let item of dataDropdown"  [value]="item.typeItem">{{item.typeItem}}</option>
                   </select>
                 </div>
@@ -39,6 +40,52 @@
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Close</button>
             <button type="button" class="btn btn-outline-dark" (click)="saveItem()">Save</button>
+        </div>
+    </ng-template>
+
+    <!-- Modal Edit Item -->
+    <ng-template #mymodalEdit let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Edit Item</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">ID</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" disabled id="example-text-input" [(ngModel)]="item.uuid">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">Nama Item</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" placeholder="Enter Name Item" id="example-text-input" [(ngModel)]="item.name">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Select</label>
+                <div class="col-sm-10">
+                    <select class="form-control" [(ngModel)]="item.typeItem">
+                <option  *ngFor="let item of dataDropdown">{{item.typeItem}}</option>
+              </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-date-input" class="col-sm-2 col-form-label">Date</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="date" id="example-date-input" placeholder="{{item.expiredDate * 1000 }}" name="dp" [(ngModel)]="item.expiredDate">
+                </div>
+                <!-- <input class="form-control" placeholder="{{itemEdit.expiredDate * 1000 | date:'yyyy-MM-dd'}}" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" [(ngModel)]="dpick">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="d.toggle()" type="button"></button>
+                </div> -->
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Close</button>
+            <button type="button" class="btn btn-outline-dark" (click)="updateItem(item.id)">Update</button>
         </div>
     </ng-template>
 
@@ -66,11 +113,14 @@
                                 <td class="text-center">{{item.uuid}}</td>
                                 <td class="text-center">{{item.name}}</td>
                                 <td class="text-center">{{item.typeItem}}</td>
-                                <td class="text-center">{{item.expiredDate * 1000 | date:'yyyy-MM-dd'}}</td>
+                                <td class="text-center">{{item.expiredDate * 1000 | date:'long'}}</td>
                                 <td class="text-center">
+                                    <button (click)="openEdit(mymodalEdit, item.id)">
+                                      <i class="mdi mdi-tooltip-edit" style="font-size:15px; margin-right:5px"></i>
+                                    </button>
                                     <button (click)="deleteItem(item.id)">
-                                    <i class="fa fa-trash-o" style="font-size:15px"></i>
-                                  </button>
+                                      <i class=" mdi mdi-delete" style="font-size:15px"></i>
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -84,7 +134,5 @@
 
     <router-outlet></router-outlet>
 </body>
-
-<!-- <router-outlet></router-outlet> -->
 
 </html>
