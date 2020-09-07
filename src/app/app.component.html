@@ -113,7 +113,7 @@
                                 <td class="text-center">{{item.uuid}}</td>
                                 <td class="text-center">{{item.name}}</td>
                                 <td class="text-center">{{item.typeItem}}</td>
-                                <td class="text-center">{{item.expiredDate * 1000 | date:'long'}}</td>
+                                <td class="text-center">{{item.expiredDate * 1000 | date: "dd-MM-yyyy" }}</td>
                                 <td class="text-center">
                                     <button (click)="openEdit(mymodalEdit, item.id)">
                                       <i class="mdi mdi-tooltip-edit" style="font-size:15px; margin-right:5px"></i>
